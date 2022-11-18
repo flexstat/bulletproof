@@ -1,0 +1,50 @@
+version: '3.1'
+
+services:
+
+  myonion:
+    image: goldy/tor-hidden-service
+    volumes:
+      - ./hidden-services:/var/lib/tor/hidden_service # .onion address and private key will be located in ./hidden_service
+      - ./tor:/etc/tor
+    environment:
+        TOR_EXTRA_OPTIONS: |
+          HiddenServiceDir /var/lib/tor/hidden_service/service1
+          HiddenServiceVersion 3
+          HiddenServicePort 80 mybunker:8080
+          HiddenServiceMaxStreams 20
+          HiddenServiceEnableIntroDoSDefense 1
+          HiddenServiceMaxStreamsCloseCircuit 1
+          HiddenServiceNumIntroductionPoints 5
+          BandwidthRate 50 MBytes
+          BandwidthBurst 75 MBytes
+          CookieAuthentication 1
+          HardwareAccel 1
+          #HiddenServiceExportCircuitID haproxy
+          #HiddenServiceOnionBalanceInstance 1
+    restart: always
+          
+  mybunker:
+    image: flexstatmain/flexstatmain:ddoscover 
+    volumes:
+      - ./bw-data:/data
+    environment:
+      - USE_BAD_BEHAVIOR=no
+      - USE_DNSBL=no
+      - USE_WHITELIST=no
+      - USE_BLACKLIST=no
+      - USE_CLIENT_CACHE=yes
+      - USE_GZIP=yes
+      - USE_REVERSE_PROXY=yes
+      - REVERSE_PROXY_URL=/
+      - REVERSE_PROXY_HOST=http://app
+      - |
+        CUSTOM_CONF_HTTP_upstream.conf=
+        upstream app {
+          server 10.10.11.12:80;
+          server 12.11.11.14:80;
+        }
+    restart: always
+
+volumes:
+  bw_data:
