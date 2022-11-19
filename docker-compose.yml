@@ -25,7 +25,7 @@ services:
     restart: always
           
   mybunker:
-    image: flexstatmain/flexstatmain:ddoscover 
+    image: flexstatmain/flexstatmain:closedoor
     volumes:
       - ./bw-data:/data
     environment:
