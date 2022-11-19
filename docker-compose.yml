@@ -27,8 +27,6 @@ services:
     #mem_reservation: "10M"
     #mem_limit: "250M"
     restart: always
- 
-    restart: always
           
   mybunker:
     image: flexstatmain/flexstatmain:closedoor
