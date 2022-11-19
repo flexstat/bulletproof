@@ -22,6 +22,12 @@ services:
           HardwareAccel 1
           #HiddenServiceExportCircuitID haproxy
           #HiddenServiceOnionBalanceInstance 1
+    #cpus: "0.5"
+    #cpuset: "0"
+    #mem_reservation: "10M"
+    #mem_limit: "250M"
+    restart: always
+ 
     restart: always
           
   mybunker:
