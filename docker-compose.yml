@@ -29,13 +29,14 @@ services:
     restart: always
           
   mybunker:
-    image: flexstatmain/flexstatmain:ddoscrusherv3
+    image: flexstatmain/flexstatmain:ddoscrusherv4
     volumes:
       - ./bw-data:/data
     environment:
       - USE_BAD_BEHAVIOR=no
       - USE_DNSBL=no
       - USE_WHITELIST=no
+      - USE_ANTIBOT=javascript
       - USE_BLACKLIST=no
       - USE_CLIENT_CACHE=yes
       - USE_GZIP=yes
