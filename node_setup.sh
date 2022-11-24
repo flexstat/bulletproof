@@ -9,14 +9,13 @@ fi
 
 read -p "Do you want to start the node right away yes/no: " foo
 
-
 i=1
 while [ "$i" -le "$x2" ]
   do
     mkdir bulletproof$i
+    cp docker-compose.yml bulletproof$i
+    cp .env bulletproof$i
     cd bulletproof$i
-    wget https://github.com/flexstat/bulletproof/blob/main/docker-compose.yml?raw=true #need to change to your repository
-    mv docker-compose.yml?raw=true docker-compose.yml
     mkdir bw-data && \chown root:101 bw-data && \chmod 770 bw-data
     if [ "$foo" == "yes" ]; then
     docker-compose up -d
@@ -24,3 +23,6 @@ while [ "$i" -le "$x2" ]
     cd ..
     i=$(($i + 1))
 done
+
+rm docker-compose.yml && rm .env
+
