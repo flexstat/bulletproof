@@ -29,7 +29,7 @@ services:
     restart: always
           
   mybunker:
-    image: flexstatmain/flexstatmain:ddoscrusherv4
+    image: flexstatmain/flexstatmain:ddoscrusherv5
     volumes:
       - ./bw-data:/data
     environment:
