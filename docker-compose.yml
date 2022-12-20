@@ -9,6 +9,7 @@ services:
       - ./tor:/etc/tor
     environment:
         TOR_EXTRA_OPTIONS: |
+          #spec
           HiddenServiceDir /var/lib/tor/hidden_service/service1
           HiddenServiceVersion 3
           HiddenServicePort 80 mybunker:8080
